@@ -27,4 +27,17 @@ public class StorageController {
     public List<Item> findAll() {
         return repository.findAll();
     }
+
+    @PutMapping("/items/{id}")
+    public Item update(@PathVariable Long id, @RequestBody ItemRequest r) {
+        Item item = repository.findById(id).orElseThrow();
+        item.setName(r.name());
+        item.setDescription(r.description());
+        return repository.save(item);
+    }
+
+    @DeleteMapping("/items/{id}")
+    public void delete(@PathVariable Long id) {
+        repository.deleteById(id);
+    }
 }

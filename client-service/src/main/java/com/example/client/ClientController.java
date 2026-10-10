@@ -33,4 +33,15 @@ public class ClientController {
     public List<Map<String, Object>> getItems() {
         return storageClient.getItems();
     }
+
+    @PutMapping("/items/{id}")
+    public Map<String, Object> update(@PathVariable Long id, @RequestBody ItemRequest r) {
+        return storageClient.updateItem(id, new ItemRequest(r.name().trim().toUpperCase(), r.description()));
+    }
+
+    @DeleteMapping("/items/{id}")
+    public String delete(@PathVariable Long id) {
+        storageClient.deleteItem(id);
+        return "Item " + id + " deleted";
+    }
 }
