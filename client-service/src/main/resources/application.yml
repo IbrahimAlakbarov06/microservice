@@ -8,3 +8,24 @@ spring:
 storage:
   service:
     url: ${STORAGE_SERVICE_URL:http://localhost:8082}
+
+resilience4j:
+  retry:
+    instances:
+      storage:
+        max-attempts: 3
+        wait-duration: 1s
+        retry-exceptions:
+          - com.example.client.exception.StorageServerException
+          - feign.RetryableException
+  circuitbreaker:
+    instances:
+      storage:
+        sliding-window-size: 5
+        minimum-number-of-calls: 5
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s
+        permitted-number-of-calls-in-half-open-state: 2
+        record-exceptions:
+          - com.example.client.exception.StorageServerException
+          - feign.RetryableException

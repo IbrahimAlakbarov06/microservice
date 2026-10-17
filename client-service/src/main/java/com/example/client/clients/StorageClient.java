@@ -1,5 +1,6 @@
-package com.example.client;
+package com.example.client.clients;
 
+import com.example.client.dto.ItemRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,4 +27,10 @@ public interface StorageClient {
 
     @DeleteMapping("/api/storage/items/{id}")
     void deleteItem(@PathVariable("id") Long id);
+
+    @GetMapping("/api/storage/flaky")
+    String flaky();
+
+    @GetMapping("/api/storage/fail")
+    String fail();
 }
