@@ -16,6 +16,25 @@ services:
       timeout: 5s
       retries: 10
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  mailpit:
+    image: axllent/mailpit
+    container_name: mailpit
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+
   storage-service:
     build: ./storage-service
     container_name: storage-service
@@ -25,9 +44,24 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/storagedb
       DB_USER: postgres
       DB_PASSWORD: postgres
+      RABBITMQ_HOST: rabbitmq
     depends_on:
       postgres:
         condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+  email-service:
+    build: ./email-service
+    container_name: email-service
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      MAIL_HOST: mailpit
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      mailpit:
+        condition: service_started
 
   client-service:
     build: ./client-service

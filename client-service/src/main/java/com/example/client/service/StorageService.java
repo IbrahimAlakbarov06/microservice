@@ -2,6 +2,7 @@ package com.example.client.service;
 
 import com.example.client.clients.StorageClient;
 import com.example.client.dto.ItemRequest;
+import com.example.client.dto.NotifyRequest;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.stereotype.Service;
@@ -27,4 +28,5 @@ public class StorageService {
     public void delete(Long id) { client.deleteItem(id); }
     public String flaky() { return client.flaky(); }
     public String fail() { return client.fail(); }
+    public Map<String, Object> notifyItem(Long id, NotifyRequest r) { return client.notifyItem(id, r); }
 }

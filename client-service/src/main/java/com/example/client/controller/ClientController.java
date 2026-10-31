@@ -1,6 +1,7 @@
 package com.example.client.controller;
 
 import com.example.client.dto.ItemRequest;
+import com.example.client.dto.NotifyRequest;
 import com.example.client.service.StorageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -53,6 +54,11 @@ public class ClientController {
     @GetMapping("/fail")
     public String fail() {
         return service.fail();
+    }
+
+    @PostMapping("/items/{id}/notify")
+    public Map<String, Object> notifyItem(@PathVariable Long id, @RequestBody NotifyRequest r) {
+        return service.notifyItem(id, r);
     }
 
     private ItemRequest process(ItemRequest r) {

@@ -1,6 +1,7 @@
 package com.example.client.clients;
 
 import com.example.client.dto.ItemRequest;
+import com.example.client.dto.NotifyRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,9 @@ public interface StorageClient {
 
     @GetMapping("/api/storage/items")
     List<Map<String, Object>> getItems();
+
+    @PostMapping("/api/storage/items/{id}/notify")
+    Map<String, Object> notifyItem(@PathVariable("id") Long id, @RequestBody NotifyRequest request);
 
     @PutMapping("/api/storage/items/{id}")
     Map<String, Object> updateItem(@PathVariable("id") Long id, @RequestBody ItemRequest request);
