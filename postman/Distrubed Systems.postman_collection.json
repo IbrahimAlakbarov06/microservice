@@ -308,6 +308,73 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "task5",
+      "item": [
+        {
+          "name": "create item",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"laptop\",\"description\":\"Gaming laptop\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/client/items",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "client",
+                "items"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "notify item",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"email\": \"ibrahim@example.com\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/client/items/3/notify",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "client",
+                "items",
+                "3",
+                "notify"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }
