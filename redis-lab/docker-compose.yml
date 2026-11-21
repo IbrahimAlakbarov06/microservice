@@ -1,0 +1,4 @@
+services:
+  postgres: { image: postgres:16, ports: ["5433:5432"],
+              environment: { POSTGRES_USER: app, POSTGRES_PASSWORD: apppass, POSTGRES_DB: shop } }
+  redis:    { image: redis:7, ports: ["6379:6379"] }
